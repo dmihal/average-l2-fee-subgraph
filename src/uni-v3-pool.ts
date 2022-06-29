@@ -1,18 +1,22 @@
 import { Address, BigDecimal, BigInt, log } from "@graphprotocol/graph-ts"
 import { Swap } from "../generated/UniV3Pool/UniV3Pool"
 import { ArbGasPrecompile } from "../generated/UniV3Pool/ArbGasPrecompile"
-import { GlobalStat } from "../generated/schema"
+import { DayStat, GlobalStat } from "../generated/schema"
 
 let router = Address.fromString('0xe592427a0aece92de3edee1f18e0157c05861564')
 let arbGasPrecompile = Address.fromString('0x000000000000000000000000000000000000006C')
 
 let eighteenDecimals = BigInt.fromI32(10).pow(18).toBigDecimal()
 let twelveDecimals = BigInt.fromI32(10).pow(12).toBigDecimal()
+let ONE_DAY = 86400
 
 export function handleSwap(event: Swap): void {
   if (event.transaction.to != router) {
     return
   }
+
+  let dayId = event.block.timestamp.toI32() / ONE_DAY
+  let date = dayId * ONE_DAY
 
   let ethPrice = event.params.amount1.toBigDecimal().div(event.params.amount0.toBigDecimal()).times(twelveDecimals)
   if (ethPrice.lt(BigDecimal.zero())) {
@@ -40,5 +44,23 @@ export function handleSwap(event: Swap): void {
   globalStats.totalCostUSD += usdFee
   globalStats.averageCostUSD = globalStats.totalCostUSD.div(BigInt.fromI32(globalStats.swapCount).toBigDecimal())
   globalStats.ethPrice = ethPrice
+
+  let dayStats = DayStat.load(dayId.toString())
+  if (!dayStats) {
+    dayStats = new DayStat(dayId.toString())
+    dayStats.date = date
+    dayStats.swapCount = 0
+    dayStats.totalCostETH = BigDecimal.zero()
+    dayStats.averageCostETH = BigDecimal.zero()
+    dayStats.totalCostUSD = BigDecimal.zero()
+    dayStats.averageCostUSD = BigDecimal.zero()
+  }
+  dayStats.swapCount += 1
+  dayStats.totalCostETH += ethFee
+  dayStats.averageCostETH = globalStats.totalCostETH.div(BigInt.fromI32(globalStats.swapCount).toBigDecimal())
+  dayStats.totalCostUSD += usdFee
+  dayStats.averageCostUSD = globalStats.totalCostUSD.div(BigInt.fromI32(globalStats.swapCount).toBigDecimal())
+
   globalStats.save()
+  dayStats.save()
 }

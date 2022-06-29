@@ -7,3 +7,13 @@ type GlobalStat @entity {
   averageCostUSD: BigDecimal!
   ethPrice: BigDecimal!
 }
+
+type DayStat @entity {
+  id: ID!
+  date: Int!
+  swapCount: Int!
+  totalCostETH: BigDecimal!
+  averageCostETH: BigDecimal!
+  totalCostUSD: BigDecimal!
+  averageCostUSD: BigDecimal!
+}
