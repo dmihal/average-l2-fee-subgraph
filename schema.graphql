@@ -3,4 +3,7 @@ type GlobalStat @entity {
   swapCount: Int!
   totalCostETH: BigDecimal!
   averageCostETH: BigDecimal!
+  totalCostUSD: BigDecimal!
+  averageCostUSD: BigDecimal!
+  ethPrice: BigDecimal!
 }
