@@ -1,0 +1,29 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: UniV3Pool
+    network: optimism
+    source:
+      address: "0xB589969D38CE76D3d7AA319De7133bC9755fD840"
+      abi: UniV3Pool
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Swap
+      abis:
+        - name: UniV3Pool
+          file: ./abis/UniV3Pool.json
+        - name: ArbGasPrecompile
+          file: ./abis/ArbGasPrecompile.json
+        - name: OptiGasPrecompile
+          file: ./abis/OptiGasPrecompile.json
+      eventHandlers:
+        - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
+          handler: handleSwap
+          receipt: true
+      file: ./src/uni-v3-pool.ts

@@ -1,10 +1,11 @@
 {
-  "name": "arbitrum-avg-fee",
-  "license": "UNLICENSED",
+  "name": "rollup-avg-fee",
+  "license": "MIT",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/arbitrum-average-fees",
+    "deploy-arbitrum": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/arbitrum-average-fees arbitrum.yaml",
+    "deploy-optimism": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/optimism-average-fees optimism.yaml",
     "create-local": "graph create --node http://localhost:8020/ dmihal/arbitrum-avg-fee",
     "remove-local": "graph remove --node http://localhost:8020/ dmihal/arbitrum-avg-fee",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 dmihal/arbitrum-avg-fee"
