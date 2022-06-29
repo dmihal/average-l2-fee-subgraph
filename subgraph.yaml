@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.5
 schema:
   file: ./schema.graphql
 dataSources:
@@ -6,42 +6,20 @@ dataSources:
     name: UniV3Pool
     network: arbitrum-one
     source:
-      address: "0xb7b0e9d6e2d182ab370fd1c020c536af6b9cbfd6"
+      address: "0xC31E54c7a869B9FcBEcc14363CF510d1c41fa443"
       abi: UniV3Pool
+      startBlock: 100909
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Burn
-        - Collect
-        - CollectProtocol
-        - Flash
-        - IncreaseObservationCardinalityNext
-        - Initialize
-        - Mint
-        - SetFeeProtocol
         - Swap
       abis:
         - name: UniV3Pool
           file: ./abis/UniV3Pool.json
       eventHandlers:
-        - event: Burn(indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
-          handler: handleBurn
-        - event: Collect(indexed address,address,indexed int24,indexed int24,uint128,uint128)
-          handler: handleCollect
-        - event: CollectProtocol(indexed address,indexed address,uint128,uint128)
-          handler: handleCollectProtocol
-        - event: Flash(indexed address,indexed address,uint256,uint256,uint256,uint256)
-          handler: handleFlash
-        - event: IncreaseObservationCardinalityNext(uint16,uint16)
-          handler: handleIncreaseObservationCardinalityNext
-        - event: Initialize(uint160,int24)
-          handler: handleInitialize
-        - event: Mint(address,indexed address,indexed int24,indexed int24,uint128,uint256,uint256)
-          handler: handleMint
-        - event: SetFeeProtocol(uint8,uint8,uint8,uint8)
-          handler: handleSetFeeProtocol
         - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
           handler: handleSwap
-      file: ./src/uni-v-3-pool.ts
+          receipt: true
+      file: ./src/uni-v3-pool.ts

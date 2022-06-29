@@ -1,6 +1,6 @@
-type ExampleEntity @entity {
+type GlobalStat @entity {
   id: ID!
-  count: BigInt!
-  owner: Bytes! # address
-  tickLower: Int! # int24
+  swapCount: Int!
+  totalCostETH: BigDecimal!
+  averageCostETH: BigDecimal!
 }
