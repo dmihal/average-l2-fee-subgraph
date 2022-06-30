@@ -82,9 +82,9 @@ export function handleSwap(event: Swap): void {
   }
   dayStats.swapCount += 1
   dayStats.totalCostETH += ethFee
-  dayStats.averageCostETH = globalStats.totalCostETH.div(BigInt.fromI32(globalStats.swapCount).toBigDecimal())
+  dayStats.averageCostETH = dayStats.totalCostETH.div(BigInt.fromI32(dayStats.swapCount).toBigDecimal())
   dayStats.totalCostUSD += usdFee
-  dayStats.averageCostUSD = globalStats.totalCostUSD.div(BigInt.fromI32(globalStats.swapCount).toBigDecimal())
+  dayStats.averageCostUSD = dayStats.totalCostUSD.div(BigInt.fromI32(dayStats.swapCount).toBigDecimal())
 
   globalStats.save()
   dayStats.save()
