@@ -6,6 +6,7 @@
     "build": "graph build",
     "deploy-arbitrum": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/arbitrum-average-fees arbitrum.yaml",
     "deploy-optimism": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/optimism-average-fees optimism.yaml",
+    "deploy-ethereum": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/ethereum-average-fees ethereum.yaml",
     "create-local": "graph create --node http://localhost:8020/ dmihal/arbitrum-avg-fee",
     "remove-local": "graph remove --node http://localhost:8020/ dmihal/arbitrum-avg-fee",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 dmihal/arbitrum-avg-fee"

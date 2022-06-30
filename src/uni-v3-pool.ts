@@ -12,6 +12,19 @@ let eighteenDecimals = BigInt.fromI32(10).pow(18).toBigDecimal()
 let twelveDecimals = BigInt.fromI32(10).pow(12).toBigDecimal()
 let ONE_DAY = 86400
 
+function getEthPrice(amount0: BigInt, amount1: BigInt): BigDecimal {
+  let chainId = dataSource.network()
+  let ratio = chainId == 'mainnet'
+    ? amount0.toBigDecimal().div(amount1.toBigDecimal())
+    : amount1.toBigDecimal().div(amount0.toBigDecimal())
+
+  if (ratio.lt(BigDecimal.zero())) {
+    ratio = ratio.neg()
+  }
+
+  return ratio.times(twelveDecimals)
+}
+
 function getGasPrice(event: ethereum.Event): BigInt {
   let chainId = dataSource.network()
 
@@ -43,11 +56,7 @@ export function handleSwap(event: Swap): void {
   let dayId = event.block.timestamp.toI32() / ONE_DAY
   let date = dayId * ONE_DAY
 
-  let ethPrice = event.params.amount1.toBigDecimal().div(event.params.amount0.toBigDecimal()).times(twelveDecimals)
-  if (ethPrice.lt(BigDecimal.zero())) {
-    ethPrice = ethPrice.neg()
-  }
-
+  let ethPrice = getEthPrice(event.params.amount0, event.params.amount1)
   let ethFee = getEthFee(event)
   let usdFee = ethFee.times(ethPrice)
 
