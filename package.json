@@ -2,8 +2,8 @@
   "name": "rollup-avg-fee",
   "license": "MIT",
   "scripts": {
-    "codegen": "graph codegen",
-    "build": "graph build",
+    "codegen": "graph codegen ethereum.yaml",
+    "build": "graph build ethereum.yaml",
     "deploy-arbitrum": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/arbitrum-average-fees arbitrum.yaml",
     "deploy-optimism": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/optimism-average-fees optimism.yaml",
     "deploy-ethereum": "graph deploy --node https://api.thegraph.com/deploy/ dmihal/ethereum-average-fees ethereum.yaml",

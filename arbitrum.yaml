@@ -25,3 +25,28 @@ dataSources:
           handler: handleSwap
           receipt: true
       file: ./src/uni-v3-pool.ts
+  - kind: ethereum
+    name: USDC
+    network: arbitrum-one
+    source:
+      address: "0xff970a61a04b1ca14834a43f5de4533ebddb5cc8"
+      abi: ERC20
+      startBlock: 100909
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Swap
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: ArbGasPrecompile
+          file: ./abis/ArbGasPrecompile.json
+        - name: OptiGasPrecompile
+          file: ./abis/OptiGasPrecompile.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+          receipt: true
+      file: ./src/erc20.ts

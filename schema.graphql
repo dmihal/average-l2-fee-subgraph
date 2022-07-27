@@ -1,19 +1,34 @@
 type GlobalStat @entity {
   id: ID!
+
   swapCount: Int!
-  totalCostETH: BigDecimal!
-  averageCostETH: BigDecimal!
-  totalCostUSD: BigDecimal!
-  averageCostUSD: BigDecimal!
+  totalSwapCostETH: BigDecimal!
+  averageSwapCostETH: BigDecimal!
+  totalSwapCostUSD: BigDecimal!
+  averageSwapCostUSD: BigDecimal!
+
+  transferCount: Int!
+  totalTransferCostETH: BigDecimal!
+  averageTransferCostETH: BigDecimal!
+  totalTransferCostUSD: BigDecimal!
+  averageTransferCostUSD: BigDecimal!
+
   ethPrice: BigDecimal!
 }
 
 type DayStat @entity {
   id: ID!
   date: Int!
+
   swapCount: Int!
-  totalCostETH: BigDecimal!
-  averageCostETH: BigDecimal!
-  totalCostUSD: BigDecimal!
-  averageCostUSD: BigDecimal!
+  totalSwapCostETH: BigDecimal!
+  averageSwapCostETH: BigDecimal!
+  totalSwapCostUSD: BigDecimal!
+  averageSwapCostUSD: BigDecimal!
+
+  transferCount: Int!
+  totalTransferCostETH: BigDecimal!
+  averageTransferCostETH: BigDecimal!
+  totalTransferCostUSD: BigDecimal!
+  averageTransferCostUSD: BigDecimal!
 }
